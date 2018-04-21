@@ -98,6 +98,7 @@ public:
     const std::string& listen_addr() const {
         return listen_addr_;
     }
+    
 private:
     void StopThreadPool();
     void StopInLoop(DoneCallback on_stopped_cb);
@@ -119,5 +120,8 @@ private:
     uint64_t next_conn_id_ = 0;
     typedef std::map<uint64_t/*the id of the connection*/, TCPConnPtr> ConnectionMap;
     ConnectionMap connections_;
+public:
+    
+    int GetPort();
 };
 }

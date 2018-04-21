@@ -2,7 +2,8 @@
 
 #include "evpp/inner_pre.h"
 #include "evpp/timestamp.h"
-
+#include <iostream>
+using namespace std;
 namespace evpp {
 class EventLoop;
 class FdChannel;
@@ -22,6 +23,15 @@ public:
 
     // nonblocking accept
     void Accept();
+    int GetPort(){
+        struct sockaddr_in serv_addr;
+        uint len_inet = sizeof (struct sockaddr_in);
+         if (getsockname(fd_, (struct sockaddr *)&serv_addr, &len_inet) < 0){
+            cout << "failed to get hostname with errno: "<< errno << endl;
+            exit(1);
+        }
+        return ntohs(serv_addr.sin_port);
+    }
 
     void Stop();
 
